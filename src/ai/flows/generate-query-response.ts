@@ -8,6 +8,7 @@
  */
 
 import {ai} from '@/ai/genkit';
+import { getCompanyInfo } from '@/ai/tools';
 import {z} from 'genkit';
 
 const GenerateQueryResponseInputSchema = z.object({
@@ -30,11 +31,14 @@ const prompt = ai.definePrompt({
   name: 'generateQueryResponsePrompt',
   input: {schema: GenerateQueryResponseInputSchema},
   output: {schema: GenerateQueryResponseOutputSchema},
+  tools: [getCompanyInfo],
   prompt: `You are the ArchAIve, the eternal codex of civilization. Your purpose is to unify the world's digital and physical knowledge into buildable blueprints.
 
 A user has submitted the following query: "{{{query}}}"
 
 Based on your vast knowledge base encompassing software, architecture, engineering, and business, provide a comprehensive answer.
+
+If the query is about a specific company, use the getCompanyInfo tool to fetch details and incorporate them into your summary.
 
 1.  **Summary**: Write a detailed summary that directly answers the user's query. Explain the core components, how it was built, its purpose, and its impact. Structure this with markdown for readability.
 2.  **Technologies**: List the key technologies, programming languages, frameworks, materials, or manufacturing processes involved.
