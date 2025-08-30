@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -25,7 +26,7 @@ const exampleQueries = [
   },
 ];
 
-const howItWorksSources = [
+const howItWorksItems = [
     {
         title: "Knowledge Synthesis",
         description: "We scrape and synthesize data from millions of sources, including GitHub repos, patent databases, architectural plans, and financial reports.",
@@ -42,34 +43,6 @@ const howItWorksSources = [
         icon: Layers
     },
 ];
-
-const howItWorksOutputs = [
-    {
-        title: "Step-by-Step Build Guides",
-        description: "Detailed, actionable instructions for constructing complex systems."
-    },
-    {
-        title: "Code Snippets & Repositories",
-        description: "Ready-to-use code for apps, AI, and SaaS platforms."
-    },
-    {
-        title: "Blueprint Diagrams",
-        description: "Architectural, mechanical, and electrical schematics."
-    },
-    {
-        title: "Business Model Breakdowns",
-        description: "Complete analysis of revenue, costs, and market strategy."
-    },
-    {
-        title: "Cost & Timeline Estimates",
-        description: "AI-driven simulations for project planning and budgeting."
-    },
-    {
-        title: "Investor Pitch Decks",
-        description: "Automatically generated presentations to secure funding."
-    }
-]
-
 
 export default function Home() {
   return (
@@ -128,7 +101,7 @@ export default function Home() {
           How It Works
         </h2>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          {howItWorksSources.map((item) => (
+          {howItWorksItems.map((item) => (
             <div key={item.title} className="flex flex-col items-center text-center">
               <div className="mb-4 rounded-lg bg-primary/10 p-3">
                 <item.icon className="h-8 w-8 text-primary" />
@@ -137,20 +110,6 @@ export default function Home() {
               <p className="text-muted-foreground">{item.description}</p>
             </div>
           ))}
-        </div>
-        <div className="mt-12 rounded-lg border bg-card p-8 shadow-sm">
-            <h3 className="mb-6 text-center font-headline text-xl font-semibold">Generated Outputs</h3>
-            <div className="grid grid-cols-2 gap-x-8 gap-y-4 md:grid-cols-3">
-                {howItWorksOutputs.map((item) => (
-                    <div key={item.title} className="flex items-start gap-3">
-                       <FileText className="h-5 w-5 shrink-0 text-primary" />
-                       <div>
-                           <p className="font-semibold">{item.title}</p>
-                           <p className="text-sm text-muted-foreground">{item.description}</p>
-                       </div>
-                    </div>
-                ))}
-            </div>
         </div>
       </section>
     </div>
