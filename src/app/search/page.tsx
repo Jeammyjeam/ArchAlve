@@ -47,22 +47,26 @@ async function SearchResult({ query }: { query: string }) {
     return (
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         <div className="space-y-8">
-          <Card>
-            <CardHeader>
-              <CardTitle className="font-headline flex items-center gap-2"><CodeXml className="h-5 w-5" /> Tech Stack</CardTitle>
-            </CardHeader>
-            <CardContent className="flex flex-wrap gap-2">
-              {blueprint.tech_stack.map(tech => <Badge key={tech} variant="secondary">{tech}</Badge>)}
-            </CardContent>
-          </Card>
-           <Card>
-            <CardHeader>
-              <CardTitle className="font-headline flex items-center gap-2"><DollarSign className="h-5 w-5" /> Business Model</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p>{blueprint.business_model}</p>
-            </CardContent>
-          </Card>
+          {blueprint.tech_stack && blueprint.tech_stack.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="font-headline flex items-center gap-2"><CodeXml className="h-5 w-5" /> Tech Stack</CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-wrap gap-2">
+                {blueprint.tech_stack.map(tech => <Badge key={tech} variant="secondary">{tech}</Badge>)}
+              </CardContent>
+            </Card>
+          )}
+          {blueprint.business_model && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="font-headline flex items-center gap-2"><DollarSign className="h-5 w-5" /> Business Model</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>{blueprint.business_model}</p>
+              </CardContent>
+            </Card>
+          )}
           {blueprint.github_files && blueprint.github_files.length > 0 && (
             <Card>
               <CardHeader>
@@ -81,7 +85,7 @@ async function SearchResult({ query }: { query: string }) {
               </CardContent>
             </Card>
           )}
-           {blueprint.code_example && (
+          {blueprint.code_example && (
             <Card>
               <CardHeader>
                 <CardTitle className="font-headline flex items-center gap-2"><Code className="h-5 w-5" /> Code Example</CardTitle>
@@ -93,26 +97,30 @@ async function SearchResult({ query }: { query: string }) {
           )}
         </div>
         <div className="space-y-8">
-           <Card>
-            <CardHeader>
-              <CardTitle className="font-headline flex items-center gap-2"><FileText className="h-5 w-5" /> Build Steps</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ol className="list-decimal list-inside space-y-2">
-                {blueprint.step_by_step_build.map(step => <li key={step}>{step}</li>)}
-              </ol>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className="font-headline flex items-center gap-2"><LinkIcon className="h-5 w-5" /> Sources</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              {blueprint.sources.map(source => (
-                <Link href={source} key={source} target="_blank" rel="noopener noreferrer" className="block truncate text-primary hover:underline">{source}</Link>
-              ))}
-            </CardContent>
-          </Card>
+           {blueprint.step_by_step_build && blueprint.step_by_step_build.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="font-headline flex items-center gap-2"><FileText className="h-5 w-5" /> Build Steps</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ol className="list-decimal list-inside space-y-2">
+                  {blueprint.step_by_step_build.map(step => <li key={step}>{step}</li>)}
+                </ol>
+              </CardContent>
+            </Card>
+           )}
+          {blueprint.sources && blueprint.sources.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="font-headline flex items-center gap-2"><LinkIcon className="h-5 w-5" /> Sources</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                {blueprint.sources.map(source => (
+                  <Link href={source} key={source} target="_blank" rel="noopener noreferrer" className="block truncate text-primary hover:underline">{source}</Link>
+                ))}
+              </CardContent>
+            </Card>
+          )}
         </div>
       </div>
     );
@@ -125,14 +133,16 @@ async function SearchResult({ query }: { query: string }) {
     return (
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         <div className="space-y-8">
-          <Card>
-            <CardHeader>
-              <CardTitle className="font-headline flex items-center gap-2"><HardHat className="h-5 w-5" /> Materials</CardTitle>
-            </CardHeader>
-            <CardContent className="flex flex-wrap gap-2">
-              {blueprint.materials.map(material => <Badge key={material} variant="secondary">{material}</Badge>)}
-            </CardContent>
-          </Card>
+          {blueprint.materials && blueprint.materials.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="font-headline flex items-center gap-2"><HardHat className="h-5 w-5" /> Materials</CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-wrap gap-2">
+                {blueprint.materials.map(material => <Badge key={material} variant="secondary">{material}</Badge>)}
+              </CardContent>
+            </Card>
+          )}
            {blueprint.engineering_firm && (
               <Card>
                 <CardHeader>
@@ -145,26 +155,30 @@ async function SearchResult({ query }: { query: string }) {
            )}
         </div>
         <div className="space-y-8">
-           <Card>
-            <CardHeader>
-              <CardTitle className="font-headline flex items-center gap-2"><FileText className="h-5 w-5" /> Construction Steps</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ol className="list-decimal list-inside space-y-2">
-                {blueprint.construction_steps.map(step => <li key={step}>{step}</li>)}
-              </ol>
-            </CardContent>
-          </Card>
-           <Card>
-            <CardHeader>
-              <CardTitle className="font-headline flex items-center gap-2"><LinkIcon className="h-5 w-5" /> Sources</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              {blueprint.sources.map(source => (
-                <Link href={source} key={source} target="_blank" rel="noopener noreferrer" className="block truncate text-primary hover:underline">{source}</Link>
-              ))}
-            </CardContent>
-          </Card>
+           {blueprint.construction_steps && blueprint.construction_steps.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="font-headline flex items-center gap-2"><FileText className="h-5 w-5" /> Construction Steps</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ol className="list-decimal list-inside space-y-2">
+                  {blueprint.construction_steps.map(step => <li key={step}>{step}</li>)}
+                </ol>
+              </CardContent>
+            </Card>
+           )}
+           {blueprint.sources && blueprint.sources.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="font-headline flex items-center gap-2"><LinkIcon className="h-5 w-5" /> Sources</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                {blueprint.sources.map(source => (
+                  <Link href={source} key={source} target="_blank" rel="noopener noreferrer" className="block truncate text-primary hover:underline">{source}</Link>
+                ))}
+              </CardContent>
+            </Card>
+           )}
         </div>
       </div>
     );
