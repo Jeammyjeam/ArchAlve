@@ -20,23 +20,23 @@ const AppBlueprintSchema = z.object({
   name: z.string().describe('The name of the application or company.'),
   type: z.string().describe('The type of entity, e.g., "Business/Fintech".'),
   tech_stack: z.array(z.string()).describe('The key technologies and frameworks used.'),
-  code_example: z.string().describe('A relevant code snippet or reference to a file.'),
+  code_example: z.string().nullable().describe('A relevant code snippet or reference to a file.'),
   business_model: z.string().describe('How the entity makes money.'),
   step_by_step_build: z.array(z.string()).describe('High-level steps to build a similar entity.'),
   github_files: z.array(z.object({
     type: z.enum(['repo', 'file']),
     path: z.string(),
     description: z.string(),
-  })).describe("A list of relevant GitHub repositories or files."),
+  })).nullable().describe("A list of relevant GitHub repositories or files."),
   sources: z.array(z.string()).describe('List of URLs for the data sources.'),
 });
 
 const BuildingBlueprintSchema = z.object({
   name: z.string().describe('The name of the building or structure.'),
   type: z.string().describe('The type of structure, e.g., "Skyscraper".'),
-  blueprint_files: z.array(z.string()).describe('Links or references to blueprint files (e.g., CAD.dwg).'),
+  blueprint_files: z.array(z.string()).nullable().describe('Links or references to blueprint files (e.g., CAD.dwg).'),
   materials: z.array(z.string()).describe('The primary construction materials.'),
-  engineering_firm: z.string().describe('The main engineering firm responsible.'),
+  engineering_firm: z.string().nullable().describe('The main engineering firm responsible.'),
   construction_steps: z.array(z.string()).describe('High-level steps of construction.'),
   sources: z.array(z.string()).describe('List of URLs or references for the data sources.'),
 });
