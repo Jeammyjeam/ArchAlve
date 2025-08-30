@@ -1,9 +1,12 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Building2, CodeXml, Database, Layers, Search, Send, Share2 } from "lucide-react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import type { FormEvent } from "react";
 
 const exampleQueries = [
   {
@@ -45,11 +48,14 @@ const howItWorksItems = [
 ];
 
 export default function Home() {
-  async function searchAction(formData: FormData) {
-    'use server';
+  const router = useRouter();
+
+  function searchAction(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
     const query = formData.get('query') as string;
     if (query) {
-      redirect(`/search?q=${encodeURIComponent(query)}`);
+      router.push(`/search?q=${encodeURIComponent(query)}`);
     }
   }
 
@@ -62,7 +68,7 @@ export default function Home() {
         <p className="mt-4 text-lg text-muted-foreground md:text-xl">
           ArchAIve is the eternal codex of civilization. We unify the world&apos;s digital and physical knowledge into buildable blueprints for every app, building, and system.
         </p>
-        <form action={searchAction} className="relative mx-auto mt-8 max-w-2xl">
+        <form onSubmit={searchAction} className="relative mx-auto mt-8 max-w-2xl">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
           <Input
             name="query"
