@@ -19,9 +19,9 @@ export type GenerateQueryResponseInput = z.infer<typeof GenerateQueryResponseInp
 const AppBlueprintSchema = z.object({
   name: z.string().describe('The name of the application or company.'),
   type: z.string().describe('The type of entity, e.g., "Business/Fintech".'),
-  tech_stack: z.array(z.string()).describe('The key technologies and frameworks used.'),
+  tech_stack: z.array(z.string()).nullable().describe('The key technologies and frameworks used.'),
   code_example: z.string().nullable().describe('A relevant code snippet or reference to a file.'),
-  business_model: z.string().describe('How the entity makes money.'),
+  business_model: z.string().nullable().describe('How the entity makes money.'),
   step_by_step_build: z.array(z.string()).describe('High-level steps to build a similar entity.'),
   github_files: z.array(z.object({
     type: z.enum(['repo', 'file']),
