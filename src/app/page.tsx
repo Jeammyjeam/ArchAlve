@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,19 +10,19 @@ const exampleQueries = [
     title: "How was Stripe built?",
     description: "Get the tech stack, API flow, revenue model, and scaling steps.",
     icon: CodeXml,
-    link: "/search?q=How+was+Stripe+built%3F",
+    href: "/search?q=How+was+Stripe+built%3F",
   },
   {
     title: "Blueprint of Burj Khalifa",
     description: "Explore its structural design, materials, cost breakdown, and timeline.",
     icon: Building2,
-    link: "/search?q=Blueprint+of+Burj+Khalifa",
+    href: "/search?q=Blueprint+of+Burj+Khalifa",
   },
   {
     title: "Build a hospital SaaS platform",
     description: "Generate a custom roadmap with stack, compliance, and budget.",
     icon: Send,
-    link: "/tools/strategic-roadmap",
+    href: "/tools/strategic-roadmap",
   },
 ];
 
@@ -82,26 +81,26 @@ export default function Home() {
         </h2>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {exampleQueries.map((query) => (
-            <Card key={query.title} className="flex transform-gpu flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
-              <CardHeader className="flex-row items-start gap-4">
-                <div className="rounded-lg bg-primary/10 p-3">
-                  <query.icon className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <CardTitle className="font-headline text-lg">{query.title}</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent className="flex-grow">
-                <p className="text-muted-foreground">{query.description}</p>
-              </CardContent>
-              <CardFooter>
-                <Button variant="ghost" asChild className="w-full justify-end">
-                  <Link href={query.link}>
+            <Link href={query.href} key={query.title} className="flex">
+              <Card className="flex w-full transform-gpu flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
+                <CardHeader className="flex-row items-start gap-4">
+                  <div className="rounded-lg bg-primary/10 p-3">
+                    <query.icon className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <CardTitle className="font-headline text-lg">{query.title}</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <p className="text-muted-foreground">{query.description}</p>
+                </CardContent>
+                <CardFooter>
+                  <Button variant="ghost" className="w-full justify-end">
                     Try It Now <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              </CardFooter>
-            </Card>
+                  </Button>
+                </CardFooter>
+              </Card>
+            </Link>
           ))}
         </div>
       </section>
