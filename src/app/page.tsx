@@ -50,7 +50,7 @@ const howItWorksItems = [
 export default function Home() {
   const router = useRouter();
 
-  function searchAction(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const query = formData.get('query') as string;
@@ -68,7 +68,7 @@ export default function Home() {
         <p className="mt-4 text-lg text-muted-foreground md:text-xl">
           ArchAIve is the eternal codex of civilization. We unify the world&apos;s digital and physical knowledge into buildable blueprints for every app, building, and system.
         </p>
-        <form onSubmit={searchAction} className="relative mx-auto mt-8 max-w-2xl">
+        <form onSubmit={handleSubmit} className="relative mx-auto mt-8 max-w-2xl">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
           <Input
             name="query"
