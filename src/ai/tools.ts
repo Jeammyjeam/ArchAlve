@@ -27,6 +27,7 @@ const companyData: Record<string, any> = {
 const githubData: Record<string, any> = {
   stripe: [
     { type: 'repo', path: 'stripe/stripe-react', description: 'React components for Stripe.js and Stripe Elements' },
+    { type: 'repo', path: 'stripe/stripe-node', description: 'Node.js library for the Stripe API.' },
     { type: 'file', path: 'stripe/stripe-node/blob/master/lib/stripe.js', description: 'Main library file for the official Node.js client' },
     { type: 'file', path: 'stripe-samples/accept-a-payment/server/server.js', description: 'Example server for processing payments' },
   ],
