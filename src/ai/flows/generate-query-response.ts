@@ -8,7 +8,7 @@
  */
 
 import {ai} from '@/ai/genkit';
-import { getCompanyInfo } from '@/ai/tools';
+import { getCompanyInfo, searchGitHub } from '@/ai/tools';
 import {z} from 'genkit';
 
 const GenerateQueryResponseInputSchema = z.object({
@@ -23,6 +23,11 @@ const AppBlueprintSchema = z.object({
   code_example: z.string().describe('A relevant code snippet or reference to a file.'),
   business_model: z.string().describe('How the entity makes money.'),
   step_by_step_build: z.array(z.string()).describe('High-level steps to build a similar entity.'),
+  github_files: z.array(z.object({
+    type: z.enum(['repo', 'file']),
+    path: z.string(),
+    description: z.string(),
+  })).describe("A list of relevant GitHub repositories or files."),
   sources: z.array(z.string()).describe('List of URLs for the data sources.'),
 });
 
@@ -53,7 +58,7 @@ const prompt = ai.definePrompt({
   name: 'generateQueryResponsePrompt',
   input: {schema: GenerateQueryResponseInputSchema},
   output: {schema: GenerateQueryResponseOutputSchema},
-  tools: [getCompanyInfo],
+  tools: [getCompanyInfo, searchGitHub],
   prompt: `You are the ArchAIve, the eternal codex of civilization. Your purpose is to unify the world's digital and physical knowledge into buildable blueprints.
 
 A user has submitted the following query: "{{{query}}}"
@@ -61,9 +66,10 @@ A user has submitted the following query: "{{{query}}}"
 1.  First, determine if the query is about a digital entity (software, app, SaaS, business) or a physical entity (building, skyscraper, bridge). Set the 'isDigital' flag accordingly.
 2.  Based on your determination, populate either the 'digitalBlueprint' or the 'physicalBlueprint' object with as much detail as possible.
 3.  If the query is about a specific company, use the getCompanyInfo tool to fetch details and incorporate them into your response.
-4.  For every piece of information, you MUST cite your sources. Populate the 'sources' array with URLs. If you are making an assumption, state it.
-5.  If some information is unavailable, return a partial JSON with null for the missing fields. Do not make up information you cannot verify.
-6.  Finally, write a concise summary of your findings.
+4.  If the query is about a software entity, use the searchGitHub tool to find relevant repositories and files. Populate the 'github_files' array with the results.
+5.  For every piece of information, you MUST cite your sources. Populate the 'sources' array with URLs. If you are making an assumption, state it.
+6.  If some information is unavailable, return a partial JSON with null for the missing fields. Do not make up information you cannot verify.
+7.  Finally, write a concise summary of your findings.
 
 Analyze the query and generate the structured JSON response.`,
 });

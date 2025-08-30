@@ -23,6 +23,18 @@ const companyData: Record<string, any> = {
   }
 };
 
+// Simulated GitHub search results
+const githubData: Record<string, any> = {
+  stripe: [
+    { type: 'repo', path: 'stripe/stripe-react', description: 'React components for Stripe.js and Stripe Elements' },
+    { type: 'file', path: 'stripe/stripe-node/blob/master/lib/stripe.js', description: 'Main library file for the official Node.js client' },
+    { type: 'file', path: 'stripe-samples/accept-a-payment/server/server.js', description: 'Example server for processing payments' },
+  ],
+  whatsapp: [
+     { type: 'repo', path: 'WhatsApp/weblib', description: 'Internal Web-client Library for WhatsApp' },
+     { type: 'repo', path: 'WhisperSystems/Signal-Android', description: 'Signal Private Messenger for Android, foundation for WA E2EE' },
+  ]
+};
 
 export const getCompanyInfo = ai.defineTool(
   {
@@ -38,5 +50,23 @@ export const getCompanyInfo = ai.defineTool(
     const key = input.companyName.toLowerCase();
     // In a real application, this would fetch from a database or external API.
     return companyData[key] || { error: 'Company not found.' };
+  }
+);
+
+
+export const searchGitHub = ai.defineTool(
+  {
+    name: 'searchGitHub',
+    description: 'Searches GitHub for relevant repositories and files based on a query.',
+    inputSchema: z.object({
+      query: z.string().describe('The search term, typically the name of a company, project, or technology.'),
+    }),
+    outputSchema: z.any(),
+  },
+  async (input) => {
+    console.log(`[searchGitHub] Searching for: ${input.query}`);
+    const key = input.query.toLowerCase();
+    // In a real application, this would call the GitHub API.
+    return githubData[key] || { message: 'No relevant files or repositories found.' };
   }
 );

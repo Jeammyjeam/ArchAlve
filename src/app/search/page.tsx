@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Building, Code, DollarSign, FileText, HardHat, LinkIcon, Terminal } from 'lucide-react';
+import { Building, Code, DollarSign, FileText, FolderGit2, HardHat, LinkIcon, Terminal } from 'lucide-react';
 import Link from 'next/link';
 
 async function SearchResult({ query }: { query: string }) {
@@ -46,6 +46,24 @@ async function SearchResult({ query }: { query: string }) {
               <p>{blueprint.business_model}</p>
             </CardContent>
           </Card>
+          {blueprint.github_files && blueprint.github_files.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="font-headline flex items-center gap-2"><FolderGit2 className="h-5 w-5" /> GitHub Files</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {blueprint.github_files.map(file => (
+                  <div key={file.path} className="flex items-start gap-4">
+                    <div className="text-muted-foreground">{file.type === 'repo' ? <FolderGit2 className="h-5 w-5" /> : <FileText className="h-5 w-5" />}</div>
+                    <div>
+                      <a href={`https://github.com/${file.path}`} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">{file.path}</a>
+                      <p className="text-sm text-muted-foreground">{file.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          )}
         </div>
         <div className="space-y-8">
            <Card>
