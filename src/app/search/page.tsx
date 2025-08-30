@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Building, Code, CodeXml, DollarSign, FileText, FolderGit2, HardHat, LinkIcon, Terminal } from 'lucide-react';
+import { Building, Code, CodeXml, DollarSign, FileText, FolderGit2, HardHat, Link as LinkIcon, Terminal } from 'lucide-react';
 import Link from 'next/link';
 
 async function SearchResult({ query }: { query: string }) {
@@ -13,7 +13,7 @@ async function SearchResult({ query }: { query: string }) {
   try {
     result = await generateQueryResponse({ query });
   } catch (error) {
-    console.error(error);
+    console.error("Error generating query response:", error);
     return (
        <Alert variant="destructive">
         <Terminal className="h-4 w-4" />
@@ -130,14 +130,16 @@ async function SearchResult({ query }: { query: string }) {
               {blueprint.materials.map(material => <Badge key={material} variant="secondary">{material}</Badge>)}
             </CardContent>
           </Card>
-           <Card>
-            <CardHeader>
-              <CardTitle className="font-headline flex items-center gap-2"><Building className="h-5 w-5" /> Engineering Firm</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p>{blueprint.engineering_firm}</p>
-            </CardContent>
-          </Card>
+           {blueprint.engineering_firm && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="font-headline flex items-center gap-2"><Building className="h-5 w-5" /> Engineering Firm</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>{blueprint.engineering_firm}</p>
+                </CardContent>
+              </Card>
+           )}
         </div>
         <div className="space-y-8">
            <Card>
