@@ -9,7 +9,21 @@ import { Building, Code, DollarSign, FileText, FolderGit2, HardHat, LinkIcon, Te
 import Link from 'next/link';
 
 async function SearchResult({ query }: { query: string }) {
-  const result = await generateQueryResponse({ query });
+  let result;
+  try {
+    result = await generateQueryResponse({ query });
+  } catch (error) {
+    console.error(error);
+    return (
+       <Alert variant="destructive">
+        <Terminal className="h-4 w-4" />
+        <AlertTitle>Service Unavailable</AlertTitle>
+        <AlertDescription>
+          The AI model seems to be overloaded at the moment. Please try your search again in a few minutes.
+        </AlertDescription>
+      </Alert>
+    )
+  }
 
   if (!result) {
     return (
