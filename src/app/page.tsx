@@ -2,21 +2,22 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, Building2, CodeXml, Database, FileText, Layers, Search, Send, Share2 } from "lucide-react";
+import { ArrowRight, Building2, CodeXml, Database, Layers, Search, Send, Share2 } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 const exampleQueries = [
   {
     title: "How was Stripe built?",
     description: "Get the tech stack, API flow, revenue model, and scaling steps.",
     icon: CodeXml,
-    link: "/code/stripe-like-payment-gateway",
+    link: "/search?q=How+was+Stripe+built%3F",
   },
   {
     title: "Blueprint of Burj Khalifa",
     description: "Explore its structural design, materials, cost breakdown, and timeline.",
     icon: Building2,
-    link: "/blueprints/burj-khalifa",
+    link: "/search?q=Blueprint+of+Burj+Khalifa",
   },
   {
     title: "Build a hospital SaaS platform",
@@ -45,6 +46,14 @@ const howItWorksItems = [
 ];
 
 export default function Home() {
+  async function searchAction(formData: FormData) {
+    'use server';
+    const query = formData.get('query') as string;
+    if (query) {
+      redirect(`/search?q=${encodeURIComponent(query)}`);
+    }
+  }
+
   return (
     <div className="flex flex-col items-center">
       <section className="w-full max-w-4xl text-center">
@@ -54,16 +63,17 @@ export default function Home() {
         <p className="mt-4 text-lg text-muted-foreground md:text-xl">
           ArchAIve is the eternal codex of civilization. We unify the world&apos;s digital and physical knowledge into buildable blueprints for every app, building, and system.
         </p>
-        <div className="relative mx-auto mt-8 max-w-2xl">
+        <form action={searchAction} className="relative mx-auto mt-8 max-w-2xl">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
           <Input
+            name="query"
             placeholder="Search digital blueprints, codebases, and playbooks..."
             className="h-12 rounded-full pl-10 pr-28"
           />
           <Button type="submit" className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-full">
             Search
           </Button>
-        </div>
+        </form>
       </section>
 
       <section className="mt-16 w-full max-w-6xl md:mt-24">
