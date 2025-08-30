@@ -63,7 +63,7 @@ async function SearchResult({ query }: { query: string }) {
           {blueprint.github_files && blueprint.github_files.length > 0 && (
             <Card>
               <CardHeader>
-                <CardTitle className="font-headline flex items-center gap-2"><FolderGit2 className="h-5 w-5" /> GitHub Files</CardTitle>
+                <CardTitle className="font-headline flex items-center gap-2"><FolderGit2 className="h-5 w-5" /> GitHub Resources</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {blueprint.github_files.map(file => (
