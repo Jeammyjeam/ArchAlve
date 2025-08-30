@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Building, Code, DollarSign, FileText, FolderGit2, HardHat, LinkIcon, Terminal } from 'lucide-react';
+import { Building, Code, CodeXml, DollarSign, FileText, FolderGit2, HardHat, LinkIcon, Terminal } from 'lucide-react';
 import Link from 'next/link';
 
 async function SearchResult({ query }: { query: string }) {
@@ -46,7 +46,7 @@ async function SearchResult({ query }: { query: string }) {
         <div className="space-y-8">
           <Card>
             <CardHeader>
-              <CardTitle className="font-headline flex items-center gap-2"><Code className="h-5 w-5" /> Tech Stack</CardTitle>
+              <CardTitle className="font-headline flex items-center gap-2"><CodeXml className="h-5 w-5" /> Tech Stack</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-wrap gap-2">
               {blueprint.tech_stack.map(tech => <Badge key={tech} variant="secondary">{tech}</Badge>)}
@@ -75,6 +75,16 @@ async function SearchResult({ query }: { query: string }) {
                     </div>
                   </div>
                 ))}
+              </CardContent>
+            </Card>
+          )}
+           {blueprint.code_example && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="font-headline flex items-center gap-2"><Code className="h-5 w-5" /> Code Example</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <pre className="whitespace-pre-wrap rounded-md bg-muted p-4 font-code text-xs text-muted-foreground">{blueprint.code_example}</pre>
               </CardContent>
             </Card>
           )}

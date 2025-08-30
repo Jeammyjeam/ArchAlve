@@ -29,7 +29,7 @@ const githubData: Record<string, any> = {
     { type: 'repo', path: 'stripe/stripe-react', description: 'React components for Stripe.js and Stripe Elements' },
     { type: 'repo', path: 'stripe/stripe-node', description: 'Node.js library for the Stripe API.' },
     { type: 'file', path: 'stripe/stripe-node/blob/master/lib/stripe.js', description: 'Main library file for the official Node.js client' },
-    { type: 'file', path: 'stripe-samples/accept-a-payment/server/server.js', description: 'Example server for processing payments' },
+    { type: 'file', path: 'stripe-samples/accept-a-payment/server/server.js', description: 'Example server for processing payments', content: "const stripe = require('stripe')('sk_test_...');\n\napp.post('/create-checkout-session', async (req, res) => {\n  const session = await stripe.checkout.sessions.create({\n    line_items: [\n      {\n        price: 'price_12345',\n        quantity: 1,\n      },\n    ],\n    mode: 'payment',\n    success_url: 'https://example.com/success',\n    cancel_url: 'https://example.com/cancel',\n  });\n\n  res.redirect(303, session.url);\n});" },
   ],
   whatsapp: [
      { type: 'repo', path: 'WhatsApp/weblib', description: 'Internal Web-client Library for WhatsApp' },

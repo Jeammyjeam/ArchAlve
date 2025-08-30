@@ -67,9 +67,10 @@ A user has submitted the following query: "{{{query}}}"
 2.  Based on your determination, populate either the 'digitalBlueprint' or the 'physicalBlueprint' object with as much detail as possible.
 3.  If the query is about a specific company, use the getCompanyInfo tool to fetch details and incorporate them into your response.
 4.  If the query is about a software entity, you MUST use the searchGitHub tool to find relevant repositories and files. Populate the 'github_files' array with the results. If no results are found, return an empty array.
-5.  For every piece of information, you MUST cite your sources. Populate the 'sources' array with URLs. If you are making an assumption, state it.
-6.  If some information is unavailable, return a partial JSON with null for the missing fields. Do not make up information you cannot verify.
-7.  Finally, write a concise summary of your findings.
+5.  For software entities, find a relevant and illustrative code snippet for the 'code_example' field. This could be from the searchGitHub tool results or a general example. If none is found, return null.
+6.  For every piece of information, you MUST cite your sources. Populate the 'sources' array with URLs. If you are making an assumption, state it.
+7.  If some information is unavailable, return a partial JSON with null for the missing fields. Do not make up information you cannot verify.
+8.  Finally, write a concise summary of your findings.
 
 Analyze the query and generate the structured JSON response.`,
 });
