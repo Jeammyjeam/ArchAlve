@@ -12,8 +12,11 @@ async function SearchResult({ query }: { query: string }) {
   let result;
   try {
     result = await generateQueryResponse({ query });
-  } catch (error) {
-    console.error("Error generating query response:", error);
+  } catch (error: any) {
+    console.error("Error generating query response:", error.message || error);
+    if (error.stack) {
+      console.error(error.stack);
+    }
     return (
        <Alert variant="destructive">
         <Terminal className="h-4 w-4" />
