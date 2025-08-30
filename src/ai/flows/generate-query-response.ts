@@ -12,14 +12,36 @@ import { getCompanyInfo } from '@/ai/tools';
 import {z} from 'genkit';
 
 const GenerateQueryResponseInputSchema = z.object({
-  query: z.string().describe('The user\'s search query.'),
+  query: z.string().describe("The user's search query."),
 });
 export type GenerateQueryResponseInput = z.infer<typeof GenerateQueryResponseInputSchema>;
 
+const AppBlueprintSchema = z.object({
+  name: z.string().describe('The name of the application or company.'),
+  type: z.string().describe('The type of entity, e.g., "Business/Fintech".'),
+  tech_stack: z.array(z.string()).describe('The key technologies and frameworks used.'),
+  code_example: z.string().describe('A relevant code snippet or reference to a file.'),
+  business_model: z.string().describe('How the entity makes money.'),
+  step_by_step_build: z.array(z.string()).describe('High-level steps to build a similar entity.'),
+  sources: z.array(z.string()).describe('List of URLs for the data sources.'),
+});
+
+const BuildingBlueprintSchema = z.object({
+  name: z.string().describe('The name of the building or structure.'),
+  type: z.string().describe('The type of structure, e.g., "Skyscraper".'),
+  blueprint_files: z.array(z.string()).describe('Links or references to blueprint files (e.g., CAD.dwg).'),
+  materials: z.array(z.string()).describe('The primary construction materials.'),
+  engineering_firm: z.string().describe('The main engineering firm responsible.'),
+  construction_steps: z.array(z.string()).describe('High-level steps of construction.'),
+  sources: z.array(z.string()).describe('List of URLs or references for the data sources.'),
+});
+
+
 const GenerateQueryResponseOutputSchema = z.object({
-  summary: z.string().describe('A detailed, well-structured summary answering the user\'s query.'),
-  technologies: z.array(z.string()).describe('A list of key technologies, frameworks, or materials.'),
-  keyConcepts: z.array(z.string()).describe('A list of key concepts, principles, or architectural patterns.'),
+  isDigital: z.boolean().describe('Is the query about a digital entity (app, SaaS) or a physical one (building)?'),
+  digitalBlueprint: AppBlueprintSchema.nullable().describe('The structured blueprint for a digital entity.'),
+  physicalBlueprint: BuildingBlueprintSchema.nullable().describe('The structured blueprint for a physical entity.'),
+  summary: z.string().describe("A summary of the findings."),
 });
 export type GenerateQueryResponseOutput = z.infer<typeof GenerateQueryResponseOutputSchema>;
 
@@ -36,15 +58,14 @@ const prompt = ai.definePrompt({
 
 A user has submitted the following query: "{{{query}}}"
 
-Based on your vast knowledge base encompassing software, architecture, engineering, and business, provide a comprehensive answer.
+1.  First, determine if the query is about a digital entity (software, app, SaaS, business) or a physical entity (building, skyscraper, bridge). Set the 'isDigital' flag accordingly.
+2.  Based on your determination, populate either the 'digitalBlueprint' or the 'physicalBlueprint' object with as much detail as possible.
+3.  If the query is about a specific company, use the getCompanyInfo tool to fetch details and incorporate them into your response.
+4.  For every piece of information, you MUST cite your sources. Populate the 'sources' array with URLs. If you are making an assumption, state it.
+5.  If some information is unavailable, return a partial JSON with null for the missing fields. Do not make up information you cannot verify.
+6.  Finally, write a concise summary of your findings.
 
-If the query is about a specific company, use the getCompanyInfo tool to fetch details and incorporate them into your summary.
-
-1.  **Summary**: Write a detailed summary that directly answers the user's query. Explain the core components, how it was built, its purpose, and its impact. Structure this with markdown for readability.
-2.  **Technologies**: List the key technologies, programming languages, frameworks, materials, or manufacturing processes involved.
-3.  **Key Concepts**: List the fundamental concepts, design principles, architectural patterns, or business models.
-
-Analyze the query and generate a structured response.`,
+Analyze the query and generate the structured JSON response.`,
 });
 
 const generateQueryResponseFlow = ai.defineFlow(
