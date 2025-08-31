@@ -11,42 +11,48 @@ const blueprintData = [
     slug: "burj-khalifa",
     description: "The world's tallest skyscraper, an icon of modern engineering and architecture in Dubai.",
     imageUrl: "https://picsum.photos/600/400?random=1",
-    aiHint: "skyscraper city"
+    aiHint: "skyscraper city",
+    query: "Blueprint of Burj Khalifa"
   },
   {
     title: "Sydney Opera House",
     slug: "sydney-opera-house",
     description: "A multi-venue performing arts centre at Sydney Harbour, known for its unique shell-like design.",
     imageUrl: "https://picsum.photos/600/400?random=2",
-    aiHint: "modern architecture"
+    aiHint: "modern architecture",
+    query: "Blueprint of Sydney Opera House"
   },
   {
     title: "The Shard",
     slug: "the-shard",
     description: "A 95-storey supertall skyscraper in London, offering panoramic views of the city.",
     imageUrl: "https://picsum.photos/600/400?random=3",
-    aiHint: "glass building"
+    aiHint: "glass building",
+    query: "Blueprint of The Shard"
   },
   {
     title: "Neom's The Line",
     slug: "neoms-the-line",
     description: "A futuristic linear smart city under construction in Saudi Arabia, designed for sustainability.",
     imageUrl: "https://picsum.photos/600/400?random=4",
-    aiHint: "futuristic city"
+    aiHint: "futuristic city",
+    query: "Blueprint of Neom's The Line"
   },
   {
     title: "Apple Park",
     slug: "apple-park",
     description: "The corporate headquarters of Apple Inc. in Cupertino, California, famed for its circular design.",
     imageUrl: "https://picsum.photos/600/400?random=5",
-    aiHint: "modern campus"
+    aiHint: "modern campus",
+    query: "Blueprint of Apple Park"
   },
   {
     title: "Gardens by the Bay",
     slug: "gardens-by-the-bay",
     description: "A nature park spanning 101 hectares in central Singapore, featuring iconic Supertree structures.",
     imageUrl: "https://picsum.photos/600/400?random=6",
-    aiHint: "futuristic park"
+    aiHint: "futuristic park",
+    query: "Blueprint of Gardens by the Bay"
   },
 ];
 
