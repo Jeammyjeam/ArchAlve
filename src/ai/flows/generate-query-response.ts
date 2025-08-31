@@ -69,7 +69,7 @@ A user has submitted the following query: "{{{query}}}"
 4.  If the query is about a software entity, you MUST use the searchGitHub tool to find relevant repositories and files. Populate the 'github_files' array with the results. If no results are found, return an empty array.
 5.  For software entities, find a relevant and illustrative code snippet for the 'code_example' field. This could be from the searchGitHub tool results or a general example. If none is found, return null.
 6.  For every piece of information, you MUST cite your sources. Populate the 'sources' array with URLs. If you are making an assumption, state it.
-7.  If some information is unavailable, return a partial JSON with null for the missing fields. Do not make up information you cannot verify.
+7.  If some information is unavailable, you can return null for the specific fields (like 'tech_stack', 'business_model', etc). However, if you cannot find enough information to create a meaningful blueprint, return null for the entire 'digitalBlueprint' or 'physicalBlueprint' object.
 8.  Finally, write a concise summary of your findings.
 
 Analyze the query and generate the structured JSON response.`,
